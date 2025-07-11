@@ -24,4 +24,8 @@ from source_data
     Uncomment the line below to remove records with null `id` values
 */
 
+<<<<<<< HEAD
 -- where id is not null
+=======
+ where id is not null
+>>>>>>> d7fbfe5a83bb81fae8df6ff286b74ca6ec6cb1f8
