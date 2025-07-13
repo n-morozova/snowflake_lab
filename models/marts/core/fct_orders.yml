@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: fact_orders
+    description: >-
+      Fact table for orders that aggregates sales amounts, discounts, taxes, and other metrics
+      by order. This model joins `stg_tpch_orders` with `int_order_items` and summarizes
+      item-level details into order-level metrics.
+
+    columns:
+      - name: order_key
+        description: Primary key representing a unique identifier for each order.
+        tests:
+          - not_null
+          - unique
+
+      - name: order_date
+        description: The date when the order was placed.
+        tests:
+          - not_null
+
+      - name: customer_key
+        description: Foreign key referencing the customer associated with the order.
+
+      - name: status_code
+        description: The status of the order, e.g. pending, shipped, completed.
+
+      - name: priority_code
+        description: Indicates the priority level of the order (e.g., standard, expedited).
+
+      - name: clerk_name
+        description: The name of the clerk who processed the order.
+
+      - name: ship_priority
+        description: Priority for shipping the order.
+
+      - name: order_count
+        description: Helper column to count orders (always set to 1 for aggregation purposes).
+
+      - name: gross_item_sales_amount
+        description: Total gross sales amount for items in an order, before discounts and taxes.
+        tests:
+          - not_null
+
+      - name: item_discount_amount
+        description: Total discount amount applied to items in an order.
+
+      - name: item_tax_amount
+        description: Total tax amount applied to items in an order.
+
+      - name: net_item_sales_amount
+        description: Net sales amount for items in an order, after discounts and taxes are applied.

@@ -24,7 +24,8 @@ target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
-
+vars:
+  surrogate_key_treat_nulls_as_empty_strings: True
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -37,9 +38,11 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  snowflake_workshop:
+  dbt_workshop:
     staging:
-      materialized: view
-      # Applies to all files under models/example/
+      +materialized: view
+      +tags: ['staging']
     marts:
-      materialized: table
+      +materialized: table
+      +tags: ['marts']
+    
