@@ -1,0 +1,119 @@
+version: 2
+
+models:
+  - name: fact_order_items
+    description: >-
+      This fact table combines information from `stg_tpch_orders` and `stg_tpch_line_items`
+      to provide a detailed view of order items, including pricing, discounts, taxes, and net sales amounts.
+
+    columns:
+      - name: order_item_key
+        description: >-
+          The primary key for items included in orders.
+        tests:
+          - not_null
+          - unique
+
+      - name: order_key
+        description: >-
+          Foreign key linking to the parent order for each line item.
+        tests:
+          - not_null
+
+      - name: customer_key
+        description: >-
+          Foreign key representing the customer who placed the order.
+
+      - name: order_date
+        description: >-
+          The date on which the order was placed.
+        tests:
+          - not_null
+
+      - name: order_status_code
+        description: >-
+          Status of the overall order (e.g., completed, pending, canceled).
+
+      - name: part_key
+        description: >-
+          Foreign key that identifies the part or product shipped in the order.
+
+      - name: supplier_key
+        description: >-
+          Foreign key that identifies the supplier responsible for the item.
+
+      - name: return_flag
+        description: >-
+          Flag indicating whether the item was returned.
+
+      - name: line_number
+        description: >-
+          The line number of the item within the order.
+
+      - name: order_item_status_code
+        description: >-
+          Status code for the order item itself.
+
+      - name: ship_date
+        description: >-
+          The date the item was shipped.
+
+      - name: commit_date
+        description: >-
+          The date when the item was committed for shipment.
+
+      - name: receipt_date
+        description: >-
+          The date when the item was received by the customer.
+
+      - name: ship_mode
+        description: >-
+          The mode of shipment for the item (e.g., ground, air).
+
+      - name: extended_price
+        description: >-
+          Total price for the item before any discounts or taxes.
+        tests:
+          - not_null
+
+      - name: quantity
+        description: >-
+          Number of units of the item in the order line.
+
+      - name: base_price
+        description: >-
+          The price per unit of the item (calculated as `extended_price/quantity`).
+
+      - name: discount_percentage
+        description: >-
+          The percentage of discount applied to the item (e.g., `0.1` for 10%).
+
+      - name: discounted_price
+        description: >-
+          The price per unit after applying the discount.
+
+      - name: gross_item_sales_amount
+        description: >-
+          The gross sales amount for the item before discounts and taxes.
+
+      - name: discounted_item_sales_amount
+        description: >-
+          The total sales amount for the item after applying the discount.
+
+      - name: item_discount_amount
+        description: >-
+          The amount of discount applied to the item (negative value).
+
+      - name: tax_rate
+        description: >-
+          The tax rate applied to the item.
+
+      - name: item_tax_amount
+        description: >-
+          Total tax amount applied to the item.
+
+      - name: net_item_sales_amount
+        description: >-
+          The total sales amount for the item after applying discounts and taxes.
+        tests:
+          - not_null
