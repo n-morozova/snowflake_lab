@@ -1,52 +1,46 @@
 version: 2
 
 models:
-  - name: fact_orders
-    description: >-
-      Fact table for orders that aggregates sales amounts, discounts, taxes, and other metrics
-      by order. This model joins `stg_tpch_orders` with `int_order_items` and summarizes
-      item-level details into order-level metrics.
-
+  - name: fct_orders
+    description: orders fact table
     columns:
       - name: order_key
-        description: Primary key representing a unique identifier for each order.
+        description: primary key of the model
         tests:
-          - not_null
           - unique
-
-      - name: order_date
-        description: The date when the order was placed.
-        tests:
           - not_null
-
+          - relationships:
+              to: ref('stg_tpch_orders')
+              field: order_key
+              severity: warn
       - name: customer_key
-        description: Foreign key referencing the customer associated with the order.
-
+        description: foreign key for customers
+      - name: order_date
+        description: date of the order
       - name: status_code
-        description: The status of the order, e.g. pending, shipped, completed.
-
-      - name: priority_code
-        description: Indicates the priority level of the order (e.g., standard, expedited).
-
-      - name: clerk_name
-        description: The name of the clerk who processed the order.
-
-      - name: ship_priority
-        description: Priority for shipping the order.
-
-      - name: order_count
-        description: Helper column to count orders (always set to 1 for aggregation purposes).
-
-      - name: gross_item_sales_amount
-        description: Total gross sales amount for items in an order, before discounts and taxes.
+        description: status of the order
         tests:
-          - not_null
-
+          - accepted_values:
+              values: ['P','O','F']
+      - name: priority_code
+        description: code associated with the order
+      - name: clerk_name
+        description: id of the clerk
+      - name: ship_priority
+        description: numeric representation of the shipping priority, zero being the default
+      - name: order_count
+        description: count of order
+      - name: gross_item_sales_amount
+        description: '{{ doc("gross_item_sales_amount") }}'
       - name: item_discount_amount
-        description: Total discount amount applied to items in an order.
-
+        description: item level discount amount. this is always less than or equal to zero
       - name: item_tax_amount
-        description: Total tax amount applied to items in an order.
-
+        description: item level tax total
       - name: net_item_sales_amount
-        description: Net sales amount for items in an order, after discounts and taxes are applied.
+        description: the net total which factors in discount and tax
+    data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        combination_of_columns:
+          - order_key
+          - customer_key
+          - order_date

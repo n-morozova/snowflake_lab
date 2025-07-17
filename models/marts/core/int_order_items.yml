@@ -1,11 +1,10 @@
 version: 2
 
 models:
-  - name: fact_order_items
+  - name: int_order_items
     description: >-
       This fact table combines information from `stg_tpch_orders` and `stg_tpch_line_items`
       to provide a detailed view of order items, including pricing, discounts, taxes, and net sales amounts.
-
     columns:
       - name: order_item_key
         description: >-
@@ -103,7 +102,7 @@ models:
       - name: item_discount_amount
         description: >-
           The amount of discount applied to the item (negative value).
-
+        
       - name: tax_rate
         description: >-
           The tax rate applied to the item.
