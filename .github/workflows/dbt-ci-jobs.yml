@@ -1,4 +1,4 @@
-name: Run Pre-commit Hooks with Postgres
+name: Run Pre-commit Hooks with Snowflake
 
 on:
   pull_request:
