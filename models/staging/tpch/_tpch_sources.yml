@@ -7,14 +7,15 @@ sources:
     tables:
       - name: orders
         description: main order tracking table
-        loaded_at_field: o_orderdate
-        freshness: 
-          warn_after: {count: 12, period: hour}
-          error_after: {count: 24, period: hour}
+        config:
+          loaded_at_field: o_orderdate
+          freshness:
+            warn_after: { count: 12, period: hour }
+            error_after: { count: 24, period: hour }
         columns:
           - name: o_orderkey
             description: SF*1,500,000 are sparsely populated
-            tests: 
+            tests:
               - unique
               - not_null
 
