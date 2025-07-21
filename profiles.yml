@@ -7,7 +7,18 @@ default:
       password: '{{ env_var("DBT_PASSWORD") }}'
       role: '{{ env_var("DBT_ROLE") }}'
       database: '{{ env_var("DBT_DATABASE") }}'
-      schema: '{{ env_var("DBT_SCHEMA") }}'
+      schema: dev
+      warehouse: '{{ env_var("DBT_WAREHOUSE") }}'
+      threads: 1
+      client_session_keep_alive: False
+    ci:
+      type: snowflake
+      account: '{{ env_var("DBT_ACCOUNT") }}'
+      user: '{{ env_var("DBT_USER") }}'
+      password: '{{ env_var("DBT_PASSWORD") }}'
+      role: '{{ env_var("DBT_ROLE") }}'
+      database: '{{ env_var("DBT_DATABASE") }}'
+      schema: ci_schema
       warehouse: '{{ env_var("DBT_WAREHOUSE") }}'
       threads: 1
       client_session_keep_alive: False
