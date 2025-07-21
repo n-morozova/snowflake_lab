@@ -51,10 +51,13 @@ jobs:
           . venv/bin/activate
           dbt compile
         env:
+          DBT_ACCOUNT: ${{ secrets.DBT_ACCOUNT }}
+          DBT_ROLE: ${{ secrets.DBT_ROLE }}
+          DBT_DATABASE: ${{ secrets.DBT_DATABASE }}
+          DBT_SCHEMA: ${{ secrets.DBT_SCHEMA }}
           DBT_USER: ${{ secrets.DBT_USER }}
           DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
-          DBT_HOST: ${{ secrets.DBT_HOST }}
-          DBT_DATABASE: ${{ secrets.DBT_DATABASE }}
+          DBT_WAREHOUSE: ${{ secrets.DBT_WAREHOUSE }}
 
       # Run pre-commit hooks
       - name: Run pre-commit on all changed files

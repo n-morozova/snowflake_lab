@@ -18,10 +18,10 @@ python3 -m venv venv
 source venv/bin/Activate.ps1
 ```
 
-Install dbt for Postgress
+Install dbt for Snowflake
 
 ```bash
-python -m pip install dbt-core dbt-postgres
+python -m pip install dbt-core dbt-snowflake
 ```
 
 Create `requirements.txt` file:
@@ -306,7 +306,7 @@ For this we will add new profile `profiles.yaml`
 default:
   outputs:
     dev:
-      type: postgres
+      type: snowflake
       host: '{{ env_var("DBT_HOST") }}'
       user: '{{ env_var("DBT_USER") }}'
       password: '{{ env_var("DBT_PASSWORD") }}'
