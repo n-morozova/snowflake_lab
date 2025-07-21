@@ -45,8 +45,8 @@ select
     ) as item_tax_amount,
     (gross_item_sales_amount + item_discount_amount + item_tax_amount)::decimal(
         16, 2
-    ) as net_item_sales_amount,,
-    {{ add_etl_timestamp() }}
+    ) as net_item_sales_amount,
+    {{ add_etl_timestamp() }} as etl_timestamp
 
 from orders
 inner join line_item on orders.order_key = line_item.order_key
