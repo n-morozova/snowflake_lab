@@ -14,11 +14,6 @@ repos:
       - id: prettier
         files: '\.(yaml|yml)$'
 
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.1.1
-    hooks:
-      - id: flake8
-
   - repo: https://github.com/tconbeer/sqlfmt
     rev: v0.21.0
     hooks:
